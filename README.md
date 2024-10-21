@@ -7,4 +7,5 @@ The `create_dendrogram_plots` function processes biological data from a CSV file
 ## Function Definition
 
 ```r
-create_dendrogram_plots(file_path, task_name, width = 200, height = 240)
+create_dendrogram_plots("ATTR_AL_FULL_filter_adj.csv", "ATTR_AL_FULL_filter",
+                        width = 200, offset= 6, xlim_max= 25, height = 300)
