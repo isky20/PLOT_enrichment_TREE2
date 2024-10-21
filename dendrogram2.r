@@ -6,7 +6,7 @@ library(gridExtra)
 library(ggtreeExtra)
 
 # Define the main function
-create_dendrogram_plots <- function(file_path, task_name, width = 200, height = 240) {
+create_dendrogram_plots <- function(file_path, task_name, width = 200, offset= 5, xlim_max= 20, height = 240) {
   # Load data
   data <- read.csv(file_path)
   
@@ -38,7 +38,6 @@ create_dendrogram_plots <- function(file_path, task_name, width = 200, height = 
   # Function to create plots
   create_plot <- function(df, title) {
     av_columns <- grep("Av_", colnames(df), value = TRUE)
-    xlim_max <- nrow(df) * 2
     all_genes <- unique(unlist(strsplit(gsub(" ", "", df$MergedGenes), ",")))
     
     # Create binary matrix
@@ -57,7 +56,7 @@ create_dendrogram_plots <- function(file_path, task_name, width = 200, height = 
     
     # Create initial ggtree plot
     p1 <- ggtree(newick, branch.length = "none", layout = "circular", open.angle = 15) + 
-      geom_tiplab(align = TRUE, linesize = 0, size = 2.5, offset = 15) + 
+      geom_tiplab(align = TRUE, linesize = 0, size = 2.5, offset = offset) + 
       ggtitle(title) + 
       theme(plot.title = element_text(hjust = 0.5)) + 
       xlim(0, xlim_max)
@@ -84,4 +83,5 @@ create_dendrogram_plots <- function(file_path, task_name, width = 200, height = 
 }
 
 # Example usage
-create_dendrogram_plots("eg.csv", "eg")
+create_dendrogram_plots("ATTR_AL_FULL_filter_adj.csv", "ATTR_AL_FULL_filter",
+                        width = 200, offset= 6, xlim_max= 25, height = 300)
